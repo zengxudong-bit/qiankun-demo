@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>主文件--qiankun</title>
+</head>
+<body>
+  <div class="mainapp">
+    <!-- 标题栏 -->
+    <header class="mainapp-header">
+      <h1>QianKun</h1>
+    </header>
+    <div class="mainapp-main">
+      <!-- 侧边栏 -->
+      <ul class="mainapp-sidemenu">
+        <li onclick="push('/react')">React</li>
+        <li onclick="push('/vue')">Vue</li>
+        <li onclick="push('/angular')">Angular</li>
+        <li onclick="push('/jquery')">JQuery</li>
+      </ul>
+      <!-- 子应用  -->
+      <main id="subapp-container"></main>
+    </div>
+  </div>
+
+</body>
+<script>
+  const push = addr => {
+    history.pushState(null, addr, addr)
+  };
+</script>
+</html>
