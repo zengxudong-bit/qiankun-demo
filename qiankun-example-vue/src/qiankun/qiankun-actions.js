@@ -18,8 +18,10 @@ class Actions {
     }
     // 映射
     setGlobalState(...args) {
+        console.log(...args);
         return this.actions.setGlobalState(...args);
     }
 }
+
 const MicroActions = new Actions();
 export default MicroActions;

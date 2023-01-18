@@ -2,7 +2,8 @@ import './qiankun/public-path';
 import { createApp } from 'vue'
 import { createRouter, createWebHistory } from 'vue-router';
 import routes from './router';
-import App from './App.vue'
+import App from './App.vue';
+import actions from './qiankun/qiankun-actions';
 
 let router = null;
 let instance = null;
@@ -32,6 +33,7 @@ export async function bootstrap() {
 
 export async function mount(props) {
   console.log('加载完成微应用--vue的项目', props);
+  actions.setActions(props);
   render(props);
 }
 

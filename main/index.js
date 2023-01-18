@@ -1,5 +1,5 @@
 import 'zone.js'; // for angular subapp
-import { registerMicroApps, runAfterFirstMounted, setDefaultMountApp, start } from 'qiankun';
+import { initGlobalState, registerMicroApps, runAfterFirstMounted, setDefaultMountApp, start } from 'qiankun';
 import './index.less';
 
 /**
@@ -12,6 +12,17 @@ import render from './render/VueRender';
 // Step1 初始化应用（可选
 render({ loading: true });
 
+const state = {
+  globalToken: ''
+};
+const { onGlobalStateChange, setGlobalState } = initGlobalState(state);
+
+onGlobalStateChange((value, prev) => console.log('[主基站进行的数据监听行为]:', value, prev));
+
+setGlobalState({
+  globalToken: '主基站赋值操作'
+});
+
 const loader = (loading) => render({ loading });
 
 // Step2 注册子应用
@@ -23,6 +34,9 @@ registerMicroApps(
       container: '#subapp-viewport',
       loader,
       activeRule: '/react',
+      props: {
+        say: 'Hello React，我是基站给你传的数据'
+      }
     },
     {
       name: 'vue',
@@ -30,6 +44,9 @@ registerMicroApps(
       container: '#subapp-viewport',
       loader,
       activeRule: '/vue',
+      props: {
+        say: 'Hello Vue，我是基站给你传的数据'
+      }
     },
     {
       name: 'angular',
@@ -37,6 +54,9 @@ registerMicroApps(
       container: '#subapp-viewport',
       loader,
       activeRule: '/angular',
+      props: {
+        say: 'Hello Angular，我是基站给你传的数据'
+      }
     },
     {
       name: 'jquery',
@@ -44,21 +64,20 @@ registerMicroApps(
       container: '#subapp-viewport',
       loader,
       activeRule: '/jquery',
+      props: {
+        say: 'Hello Jquery，我是基站给你传的数据'
+      }
     }
   ],
   {
     beforeLoad: [
       (app) => {
-        console.log('[LifeCycle] before load %c%s', 'color: green;', app.name);
-        if (sessionStorage.getItem('Token')) {
-          //  微应用加载检查登录 已登录 子应用直接传参登录
-          
-        }
+        console.log(app.name,'beforeLoad');
       }
     ],
     beforeMount: [
       (app) => {
-        console.log('[LifeCycle] before mount %c%s', 'color: green;', app.name);
+        console.log(app,'beforeMount');
       },
     ],
     afterUnmount: [
@@ -75,6 +94,6 @@ setDefaultMountApp('/vue');
 // Step4 启动应用
 start();
 
-// runAfterFirstMounted(() => {
-//   console.log('[MainApp] first app mounted');
-// });
+runAfterFirstMounted(() => {
+  console.log('[MainApp] first app mounted');
+});

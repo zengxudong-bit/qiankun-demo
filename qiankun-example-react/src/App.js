@@ -6,8 +6,6 @@ import './App.css';
 import Home from './pages/Home';
 import About from './pages/About';
 
-console.log(window.location.href);
-
 const RouteExample = () => {
   return (
     <Router basename={window.__POWERED_BY_QIANKUN__ ? '/react' : '/'}>
@@ -27,7 +25,6 @@ const RouteExample = () => {
 };
 
 function App() {
-  console.log(window.location.href.includes('react'),'是否react');
   return (
     <div className="App">
       <header>

@@ -5,6 +5,7 @@ import './index.css';
 import App from './App';
 // import reportWebVitals from './reportWebVitals';
 import * as serviceWorker from './qiankun/serviceWorker';
+import actions from './qiankun/qiankun-actions';
 
 function render(props = {}) {
   const { container } = props;
@@ -22,7 +23,7 @@ export async function bootstrap() {
 
 export async function mount(props) {
   console.log('加载完成微应用--react的项目', props);
-  // storeTest(props);
+  actions.setActions(props);
   render(props);
 }
 
